@@ -1,0 +1,68 @@
+\chapter{Results}
+\label{ch:results}
+
+\section{Overview of Included Studies}
+% TODO: Insert PRISMA flow diagram here after completing Week 3 screening.
+
+After executing the search queries across IEEE Xplore, Scopus, Google Scholar, and PubMed, approximately 40--60 unique records were identified. Following title and abstract screening (to be completed in Week 3), the final selection is expected to include 15--25 papers for full-text review.
+
+\section{Thematic Analysis}
+The reviewed literature falls into three primary categories regarding the control of contact-rich assistive tasks.
+
+%% ========================================================================
+\subsection{Theme 1: Adaptive Admittance Control}
+%% ========================================================================
+Admittance control ($F_{\text{in}} \rightarrow \dot{x}_{\text{out}}$) is the dominant paradigm for making robots ``feel lighter'' during physical human-robot interaction \cite{keemink2018admittance}. A significant body of work focuses on \textit{variable} or \textit{adaptive} admittance, where the control parameters (virtual mass $M$, damping $B$, stiffness $K$) are adjusted based on context.
+
+\textbf{Key Findings:}
+\begin{itemize}
+    \item Fuzzy-logic and neural-network approaches can estimate human intent from measured forces and velocities, enabling adaptive force scaling \cite{li2021adaptive, zhang2021variable}.
+    \item All three admittance parameters can be systematically updated while maintaining passivity through ``power envelope regulation'' \cite{li2022intention}.
+    \item Online detection of instability (e.g., via frequency analysis of the force signal) allows for real-time gain adaptation \cite{kronander2016online}.
+\end{itemize}
+
+\textbf{Critical Gap:}
+Most studies assume the \textit{constraint surface is known} (e.g., a flat table). The challenge of adapting admittance parameters when the surface geometry is \textbf{unknown and varying} remains underexplored.
+
+%% ========================================================================
+\subsection{Theme 2: Anisotropic (Direction-Dependent) Compliance}
+%% ========================================================================
+Standard admittance controllers apply \textit{isotropic} compliance---the robot feels equally ``light'' in all directions. However, certain tasks require \textit{anisotropic} behavior: low resistance tangentially (to assist sliding) but high resistance or force-hold normally (to maintain contact).
+
+\textbf{Key Findings:}
+\begin{itemize}
+    \item The concept of anisotropic compliance is established in the manipulation literature (e.g., for insertion tasks), but explicit application to pHRI tool assistance is rare.
+    \item One recent study \cite{anisotropic2024handover} applies anisotropic variable force guidance to robot-to-human handovers, decoupling retraction motions from intended handover directions.
+    \item Shear-thickening fluid-inspired controllers \cite{chen2025shear} achieve a form of anisotropy by increasing resistance only during impacts.
+\end{itemize}
+
+\textbf{Critical Gap:}
+\textbf{No study was found that explicitly combines (1) online surface normal estimation with (2) anisotropic admittance control for (3) tangential power assist on curved, unknown surfaces.} This is the primary novelty of the proposed thesis.
+
+%% ========================================================================
+\subsection{Theme 3: Active Inference for Intent Detection}
+%% ========================================================================
+Active inference is a theoretical framework (rooted in the Free Energy Principle) where agents minimize prediction errors through perception and action \cite{friston2016active}. It has been proposed as a unifying framework for robotics \cite{sajid2022revolutionise}.
+
+\textbf{Key Findings:}
+\begin{itemize}
+    \item Active inference has been successfully implemented on humanoid robots for body perception and reaching tasks \cite{lanillos2019active, lanillos2020endtoend}.
+    \item The framework offers a principled way to handle uncertainty and adapt to dynamic environments.
+    \item Theoretical models have been proposed for trust and affective interaction \cite{trust2021active, affective2021active}.
+\end{itemize}
+
+\textbf{Critical Gap:}
+All reviewed implementations focus on \textbf{free-motion reaching tasks}. No study applies active inference to \textbf{continuous contact tasks} (e.g., surface following, grinding). Integration with force-based controllers (admittance/impedance) is unexplored.
+
+%% ========================================================================
+\section{Summary of Research Gaps}
+%% ========================================================================
+Based on the thematic analysis, the following gaps are identified as opportunities for the proposed thesis:
+
+\begin{enumerate}
+    \item \textbf{Gap 1 (Control):} Anisotropic admittance control with online surface estimation for unknown curved surfaces.
+    \item \textbf{Gap 2 (Inference):} Application of active inference to continuous contact tasks (not just reaching).
+    \item \textbf{Gap 3 (Integration):} Combining intent inference with force control for seamless ``cruise control'' and ``power assist.''
+\end{enumerate}
+
+The primary contribution of this thesis will address \textbf{Gap 1}. If time permits, \textbf{Gap 2} will be explored as an extension.

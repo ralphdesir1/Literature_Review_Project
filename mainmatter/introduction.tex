@@ -1,0 +1,26 @@
+\chapter{Introduction}
+\label{chapter:introduction}
+
+\section{Context}
+Industrial tool-handling tasks (e.g., sanding, polishing, grinding) often require an operator to apply significant contact forces for extended periods, leading to musculoskeletal disorders. Physical Human-Robot Interaction (pHRI) offers a solution through mechanically coupled assistive devices that provide power augmentation. However, unlike free-motion gestures, these tasks are constrained by the physical environment (the surface).
+
+\section{Problem Statement}
+Standard power-assist controllers (e.g., admittance control) typically assume a known environment or rely on the operator to handle all geometric adaptation. A critical gap remains: how to provide seamless "cruise control" (holding normal force) and "power assist" (reducing tangential effort) when the surface curvature is \emph{unknown} and varying.
+
+\section{Research Objectives}
+This literature review aims to establish the theoretical foundation for a control strategy that addresses this gap.
+
+\subsection{Primary Research Question (The "Spine")}
+\textit{How can a shared-control framework adaptively decouple normal force maintenance from tangential motion guidance on surfaces with unknown curvature?}
+
+\subsection{Secondary Objective (The "Extension")}
+If the primary control mechanics are robust, the secondary objective is to investigate:
+\textit{How can Active Inference be utilized to disambiguate operator intent during complex maneuvering on these surfaces?}
+
+\section{Thesis Roadmap}
+\begin{itemize}
+    \item \textbf{Phase 1 (Core):} Design and validation of Anisotropic Admittance Control with Online Surface Estimation.
+    \item \textbf{Phase 2 (Augmentation):} Integration of an Inference Engine (e.g., Active Inference) to predict changes in task direction.
+\end{itemize}
+
+This review concentrates on the state-of-the-art for Phase 1, while providing a preliminary outlook on Phase 2.

@@ -1,0 +1,57 @@
+\chapter{Methodology}
+\label{ch:methodology}
+
+This literature review follows the PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses) guidelines to ensure a transparent and reproducible selection process \cite{keemink2018admittance}.
+
+\section{Search Strategy}
+To identify relevant literature on control strategies for mechanically coupled assistive devices, we conducted searches in the following electronic databases:
+\begin{itemize}
+    \item IEEE Xplore
+    \item Scopus
+    \item Google Scholar
+    \item PubMed (for pHRI/ergonomics)
+\end{itemize}
+
+\subsection{Search Queries}
+Two clusters of queries were designed to cover the primary (control) and secondary (inference) research directions:
+
+\textbf{Cluster A: Anisotropic Admittance Control (Primary Focus)}
+\begin{enumerate}
+    \item \texttt{("admittance control" OR "impedance control") AND ("unknown environment" OR "unknown surface") AND ("pHRI")}
+    \item \texttt{("anisotropic" OR "directional") AND ("admittance" OR "compliance") AND ("robot")}
+    \item \texttt{("variable admittance") AND ("intent" OR "intention") AND ("physical human-robot interaction")}
+\end{enumerate}
+
+\textbf{Cluster B: Active Inference in pHRI (Secondary Focus)}
+\begin{enumerate}
+    \item \texttt{("active inference" OR "free energy principle") AND ("robot") AND ("interaction" OR "shared control")}
+\end{enumerate}
+
+\section{Selection Criteria}
+Studies were screened based on the following criteria:
+
+\subsection{Inclusion Criteria}
+\begin{itemize}
+    \item Peer-reviewed journal articles and major conference proceedings (IEEE ICRA, pedestrian HRI, pedestrian Robotics and Automation Letters).
+    \item Published between 2015 and 2025 (to capture recent advancements while including foundational work).
+    \item Focus on continuous contact tasks (e.g., surface following, grinding, polishing) OR force control in constrained environments.
+    \item Involves physical coupling between human and robot (not pure teleoperation without haptic feedback).
+\end{itemize}
+
+\subsection{Exclusion Criteria}
+\begin{itemize}
+    \item Studies focused solely on free-motion gestures (no contact with environment).
+    \item Fully autonomous systems with no human-in-the-loop.
+    \item Medical/Rehabilitation exoskeletons (unless control logic is directly transferable to industrial tool assistance).
+    \item Pure simulation studies without hardware validation (unless foundational/theoretical).
+\end{itemize}
+
+\section{Data Extraction}
+For each included study, the following information was extracted:
+\begin{itemize}
+    \item Control architecture (admittance, impedance, hybrid).
+    \item Assumptions about environment geometry (known/unknown surface).
+    \item Human intent estimation method (if any).
+    \item Experimental validation (simulation, hardware, user study).
+    \item Key findings and limitations.
+\end{itemize}

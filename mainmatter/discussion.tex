@@ -1,0 +1,49 @@
+\chapter{Discussion}
+\label{ch:discussion}
+
+\section{Synthesis of Findings}
+The literature review reveals a mature body of work on admittance control for physical human-robot interaction, with recent advances in adaptive/variable strategies that respond to human intent. However, a critical examination exposes a blind spot: the vast majority of studies assume a \textit{known} constraint geometry.
+
+This assumption is problematic for real-world industrial tasks where operators guide tools across surfaces of arbitrary shape---think of sanding a curved car body panel or grinding corrosion off a pipe elbow. In these scenarios, the surface normal vector $\mathbf{n}$ is not available from a CAD model; it must be inferred in real-time from sensor data (e.g., force/torque measurements, velocity directions).
+
+\section{Positioning of the Proposed Research}
+The proposed thesis sits at the intersection of two established fields:
+
+\begin{itemize}
+    \item \textbf{Adaptive Admittance Control:} Well-studied for free motion and simple contacts. Provides the ``power assist'' capability.
+    \item \textbf{Force/Position Hybrid Control:} Classical approach for constrained motion, but typically assumes known constraint frames.
+\end{itemize}
+
+By combining online surface estimation with direction-dependent (anisotropic) compliance, the thesis proposes a novel control architecture that:
+\begin{enumerate}
+    \item Estimates the local surface normal from force and velocity measurements.
+    \item Projects the admittance controller into the estimated tangent plane.
+    \item Maintains a desired contact force along the estimated normal (``cruise control'').
+    \item Provides low apparent mass in the tangent plane (``power assist'').
+\end{enumerate}
+
+\section{Comparison with Closest Existing Work}
+The closest existing work is the anisotropic variable force guidance for handovers \cite{anisotropic2024handover}. However, key differences exist:
+\begin{itemize}
+    \item That work addresses \textit{transient} handover motions, not \textit{sustained} surface-following tasks.
+    \item The ``anisotropy'' is defined in a fixed task frame, not an online-estimated surface frame.
+    \item No force-hold (``cruise control'') functionality is implemented.
+\end{itemize}
+
+\section{Limitations of This Review}
+\begin{itemize}
+    \item The search was limited to English-language publications in major databases.
+    \item Grey literature (patents, technical reports) was not systematically included.
+    \item The Active Inference section is less comprehensive due to the nascent state of the field.
+\end{itemize}
+
+\section{Implications for the Thesis}
+The identified gap (anisotropic control on unknown surfaces) is both \textbf{technically challenging} and \textbf{practically relevant}. The key technical sub-problems to address are:
+\begin{enumerate}
+    \item \textbf{Surface Normal Estimation:} How to robustly estimate $\mathbf{n}$ from noisy force/velocity data.
+    \item \textbf{Frame Projection:} How to project the admittance dynamics into the tangent plane without introducing discontinuities.
+    \item \textbf{Stability:} How to ensure passivity/stability when the reference frame is time-varying.
+\end{enumerate}
+
+These sub-problems will form the core technical contributions of the thesis.
+

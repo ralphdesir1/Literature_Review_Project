@@ -1,0 +1,176 @@
+% =========================================================================
+% LITERATURE REVIEW BIBLIOGRAPHY - Master Thesis
+% Topic: Anisotropic Admittance Control & Active Inference in pHRI
+% Last Updated: December 16, 2025
+% =========================================================================
+
+% -------------------------------------------------------------------------
+% CLUSTER A: ADMITTANCE CONTROL (THE "SPINE")
+% -------------------------------------------------------------------------
+
+@article{keemink2018admittance,
+  author    = {Keemink, A.Q.L. and van der Kooij, H. and Stienen, A.H.A.},
+  title     = {Admittance Control for Physical Human–Robot Interaction},
+  journal   = {The International Journal of Robotics Research},
+  volume    = {37},
+  number    = {11},
+  pages     = {1421--1444},
+  year      = {2018},
+  doi       = {10.1177/0278364918768950},
+  note      = {FOUNDATIONAL. TU Delft. Comprehensive overview with 7 design guidelines. Must-cite.}
+}
+
+@article{kronander2016online,
+  author    = {Kronander, K. and Billard, A.},
+  title     = {Online Stability in Human-Robot Cooperation with Admittance Control},
+  journal   = {IEEE Transactions on Haptics},
+  volume    = {9},
+  number    = {4},
+  pages     = {519--530},
+  year      = {2016},
+  doi       = {10.1109/TOH.2016.2530162},
+  note      = {Addresses instability detection and online gain adaptation. Highly relevant for stability analysis.}
+}
+
+@article{li2018fractional,
+  author    = {Li, Yanling and others},
+  title     = {Stable Physical Human-Robot Interaction Using Fractional Order Admittance Control},
+  journal   = {IEEE Transactions on Industrial Electronics},
+  year      = {2018},
+  doi       = {10.1109/TIE.2018.2852618},
+  note      = {Novel use of fractional calculus. Improved robustness and transparency.}
+}
+
+@article{li2021adaptive,
+  author    = {Li, Yanling and others},
+  title     = {Adaptive Human Force Scaling via Admittance Control for Physical Human-Robot Interaction},
+  journal   = {IEEE Robotics and Automation Letters},
+  year      = {2021},
+  doi       = {10.1109/LRA.2021.3067293},
+  note      = {Fuzzy logic for intent estimation. Shows adaptive scaling improves performance.}
+}
+
+@article{zhang2021variable,
+  author    = {Zhang, Xuefeng and others},
+  title     = {Variable Admittance Control Based on Trajectory Prediction of Human Hand Motion for Physical Human-Robot Interaction},
+  journal   = {Applied Sciences},
+  volume    = {11},
+  number    = {12},
+  pages     = {5651},
+  year      = {2021},
+  doi       = {10.3390/app11125651},
+  note      = {Uses LSTM neural network for trajectory prediction. Smoother interaction.}
+}
+
+@article{li2022intention,
+  author    = {Li, Mingjing and others},
+  title     = {Human Intention-Oriented Variable Admittance Control with Power Envelope Regulation in Physical Human-Robot Interaction},
+  journal   = {Mechatronics},
+  volume    = {83},
+  pages     = {102746},
+  year      = {2022},
+  doi       = {10.1016/j.mechatronics.2022.102746},
+  note      = {Systematic adaptation of ALL THREE admittance parameters. Power envelope for passivity.}
+}
+
+@inproceedings{guler2022adaptive,
+  author    = {Guler, Berk and Niaz, Pouya P. and Madani, Alireza and Aydin, Yusuf and Basdogan, Cagatay},
+  title     = {An Adaptive Admittance Controller for Collaborative Drilling with a Robot Based on Subtask Classification via Deep Learning},
+  booktitle = {arXiv preprint arXiv:2205.14457},
+  year      = {2022},
+  note      = {Deep learning for subtask classification in CONTACT tasks. Directly relevant to unknown-surface problem.}
+}
+
+@article{anisotropic2024handover,
+  author    = {Various},
+  title     = {Overcoming the Cognition-Reality Gap in Robot-to-Human Handovers with Anisotropic Variable Force Guidance},
+  journal   = {IEEE Robotics and Automation Letters},
+  year      = {2024},
+  note      = {ANISOTROPIC control for handovers. Decouples retraction motions. Very close to thesis concept.}
+}
+
+@article{chen2025shear,
+  author    = {Chen, Lu and Chen, Lipeng and others},
+  title     = {Compliance While Resisting: A Shear-Thickening Fluid Controller for Physical Human-Robot Interaction},
+  journal   = {arXiv preprint arXiv:2502.01376},
+  year      = {2025},
+  note      = {Novel bio-inspired controller. Achieves compliance AND resistance to impacts.}
+}
+
+% -------------------------------------------------------------------------
+% CLUSTER B: ACTIVE INFERENCE (THE "EXTENSION")
+% -------------------------------------------------------------------------
+
+@article{friston2016active,
+  author    = {Friston, Karl and others},
+  title     = {Active Inference and Robot Control: A Case Study},
+  journal   = {Royal Society Open Science},
+  volume    = {3},
+  number    = {9},
+  pages     = {160278},
+  year      = {2016},
+  doi       = {10.1098/rsos.160278},
+  note      = {FOUNDATIONAL. First application of Active Inference to robot control (simulated PR2).}
+}
+
+@article{sajid2022revolutionise,
+  author    = {Sajid, Noor and others},
+  title     = {How Active Inference Could Help Revolutionise Robotics},
+  journal   = {Entropy},
+  volume    = {24},
+  number    = {3},
+  pages     = {361},
+  year      = {2022},
+  doi       = {10.3390/e24030361},
+  note      = {Comprehensive overview of Active Inference potential in robotics. Good for background.}
+}
+
+@article{lanillos2019active,
+  author    = {Lanillos, Pablo and others},
+  title     = {Active Inference Body Perception and Action for Humanoid Robots},
+  journal   = {arXiv preprint arXiv:1906.03022},
+  year      = {2019},
+  note      = {Implementation on iCub. Reaching tasks. Does NOT address continuous contact.}
+}
+
+@article{lanillos2020endtoend,
+  author    = {Lanillos, Pablo and others},
+  title     = {End-to-End Pixel-Based Deep Active Inference for Body Perception and Action},
+  journal   = {arXiv preprint arXiv:2001.05847},
+  year      = {2020},
+  note      = {Deep learning version. Still focused on reaching/perception, not force control.}
+}
+
+@article{trust2021active,
+  author    = {Various},
+  title     = {Trust as Extended Control: Human-Machine Interactions as Active Inference},
+  journal   = {Frontiers in Human Neuroscience},
+  year      = {2021},
+  note      = {Theoretical model of trust in HRI via Active Inference. Conceptual, not implemented.}
+}
+
+@article{affective2021active,
+  author    = {Various},
+  title     = {Active Inference Through Energy Minimization in Multimodal Affective Human-Robot Interaction},
+  journal   = {Frontiers in Robotics and AI},
+  year      = {2021},
+  note      = {Emotion estimation, not physical interaction.}
+}
+
+@article{incremental2023active,
+  author    = {Various},
+  title     = {Incremental Learning of Goal-Directed Actions in a Dynamic Environment by a Robot Using Active Inference},
+  journal   = {Frontiers in Neurorobotics},
+  year      = {2023},
+  note      = {Incremental learning with human tutoring. Promising direction for adaptation.}
+}
+
+% -------------------------------------------------------------------------
+% EXAMPLE ENTRY (from template - remove or replace)
+% -------------------------------------------------------------------------
+@article{example-article,
+    author  = {I. Surname},
+    title   = {Example article title},
+    journal = {Int. J. Example Articles},
+    year    = {2020}
+}

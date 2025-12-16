@@ -1,0 +1,75 @@
+# =============================================================================
+# LaTeX .gitignore - TU Delft Thesis/Report
+# =============================================================================
+
+## Core LaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+## Bibliography auxiliary files
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tool auxiliary files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+## Auxiliary and intermediate files from other packages
+*.alg
+*.loa
+*.thm
+*.nav
+*.pre
+*.snm
+*.vrb
+
+## latexindent backup files
+indent.log
+*.bak[0-9]*
+
+## Generated PDF (uncomment if you don't want to track the PDF)
+# *.pdf
+
+## Temporary files
+*.tmp
+*~
+
+## OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+## MiKTeX files
+*.synctex.gz
+
