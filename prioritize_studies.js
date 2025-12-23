@@ -19,6 +19,8 @@ function parseBibTex(content) {
         while ((fieldMatch = FIELD_REGEX.exec(body)) !== null) {
             entry[fieldMatch[1].toLowerCase()] = fieldMatch[2].replace(/\n/g, ' ').trim();
         }
+        // Ensure year is an integer
+        entry.yearInt = parseInt(entry.year) || 0;
         entries.push(entry);
     }
     return entries;
@@ -27,45 +29,54 @@ function parseBibTex(content) {
 function categorizePaper(entry) {
     const text = ((entry.title || "") + " " + (entry.abstract || "") + " " + (entry.keywords || "")).toLowerCase();
     
-    // TIER 0: DIAMOND (Intersection) - The "Holy Grail"
-    // Unknown Surface AND Anisotropic
+    // TIER 0: THE DIAMOND LIST (Intersection)
     const isUnknown = text.includes('unknown surface') || text.includes('unknown environment') || text.includes('curvature estimation');
     const isAniso = text.includes('anisotropic') || text.includes('tangential') || text.includes('directional');
     if (isUnknown && isAniso) {
-        return { tier: 0, reason: "💎 DIAMOND: Unknown Surface + Anisotropic (Thesis Core)" };
+        return { tier: 0, reason: "💎 DIAMOND: Intersection (Unknown + Anisotropic)" };
     }
 
-    // TIER 0.5: PLATINUM (The "Heavy Hitters") - ~20-30 papers
-    // 1. Explicit Anisotropic Control (rare and critical)
-    if (text.includes('anisotropic') || text.includes('directional compliance') || text.includes('directional impedance')) {
-        return { tier: 0.5, reason: "PLATINUM: Explicit Anisotropic/Directional Control" };
+    // TIER 0.5: THE "ASSOCIATE PROFESSOR" CUT (Quality/Recency/Relevance)
+    // Target: ~30 papers.
+    // Logic: 
+    // 1. Recent (2022+) Unknown Surface OR Anisotropic
+    // 2. ANY year if it's "Active Inference + Contact" (Rare/High Value)
+    // 3. Foundational papers (Keemink, Kronander) irrespective of year
+
+    const isRecent = entry.yearInt >= 2022;
+    const isFoundational = entry.key.includes('keemink') || entry.key.includes('kronander') || entry.key.includes('friston');
+    
+    // Core Topics
+    const isCoreTopic = (isUnknown || isAniso); 
+    const isActInfContact = (text.includes('active inference') || text.includes('free energy')) && (text.includes('contact') || text.includes('force'));
+
+    // Rule 1: Recent Core Topic
+    if (isRecent && isCoreTopic) {
+        return { tier: 0.5, reason: "✨ TIER 0.5: Recent State-of-Art (2022+) Core Topic" };
     }
-    // 2. Active Inference WITH Contact/Force (rare and critical)
-    if ((text.includes('active inference') || text.includes('free energy')) && (text.includes('contact') || text.includes('force') || text.includes('haptic'))) {
-        return { tier: 0.5, reason: "PLATINUM: Active Inference + Contact" };
+    // Rule 2: Active Inference in Contact (Rare Gem)
+    if (isActInfContact) {
+        return { tier: 0.5, reason: "✨ TIER 0.5: Active Inference in Contact (High Value)" };
     }
-    // 3. Unknown Surface + Admittance (The "Grinding" Competitors)
-    if (isUnknown && (text.includes('admittance') || text.includes('impedance'))) {
-        return { tier: 0.5, reason: "PLATINUM: Unknown Surface + Impedance/Admittance" };
+    // Rule 3: Foundational
+    if (isFoundational) {
+        return { tier: 0.5, reason: "✨ TIER 0.5: Foundational Theory (Must Cite)" };
     }
 
-    // TIER 1: GOLD (Component Solutions)
-    const isUnknownGeneral = text.includes('unknown surface') || text.includes('unknown environment') || text.includes('curvature estimation');
-    if (isUnknownGeneral) {
-        return { tier: 1, reason: "GOLD: Unknown Surface (General)" };
-    }
-    if (text.includes('control') && (text.includes('contact') || text.includes('interaction'))) {
-        return { tier: 1, reason: "GOLD: General Contact Control" };
+    // TIER 1: The "Gold" (Old or Less Specific)
+    // Older Unknown Surface/Anisotropic papers
+    if (isCoreTopic) {
+        return { tier: 1, reason: "GOLD: Relevant but Older/Less Specific" };
     }
 
-    // TIER 2: SILVER (Support)
-    const hasGrinding = text.includes('grinding') || text.includes('polishing') || text.includes('sanding');
+    // TIER 2: Silver (Support)
+    const hasGrinding = text.includes('grinding') || text.includes('polishing');
     const hasAdaptAdmittance = text.includes('variable admittance') || text.includes('adaptive admittance');
     if (hasGrinding || hasAdaptAdmittance) {
-        return { tier: 2, reason: "SILVER: Grinding/Adaptive Support" };
+        return { tier: 2, reason: "SILVER: Strong Support" };
     }
 
-    return { tier: 3, reason: "BRONZE: General Context" };
+    return { tier: 3, reason: "BRONZE: Context" };
 }
 
 function generatePriorityList() {
@@ -93,29 +104,28 @@ function generatePriorityList() {
         else tier3.push(entry);
     });
 
-    let output = `# Week 3.5: Strategic Reading Priority (Platinum Cut)\n\n`;
-    output += `**Objective:** Identify the top ~30 papers (Diamond + Platinum) for deep reading.\n\n`;
+    let output = `# Week 3.5: Strategic Reading Priority (The Professor's Selection)\n\n`;
+    output += `**Objective:** A realistic "Must Read" list of ~30 papers that define the State of the Art.\n\n`;
     
-    output += `## 💎 Tier 0: The Diamond List (Thesis Core) - ${tier0.length} Papers\n`;
-    output += `*Intersection of Unknown Surface AND Anisotropy.*\n\n`;
-    output += `| Citation Key | Year | Title | Reason |\n| :--- | :--- | :--- | :--- |\n`;
+    output += `## 💎 Tier 0: The Intersection (N=${tier0.length})\n`;
+    output += `*The Exact Gap. Read these first.*\n`;
     tier0.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
-    output += `\n## 💍 Tier 0.5: The Platinum List (Heavy Hitters) - ${tier05.length} Papers\n`;
-    output += `*Major competitors: Explicit Anisotropy, Active Inf+Contact, or Unknown Surface Control.*\n\n`;
+    output += `\n## ✨ Tier 0.5: The "Associate Professor" List (N=${tier05.length})\n`;
+    output += `*High-Impact Papers: Recent (2022+) Core Topics, Foundational Theory, or Rare Active Inference applications.*\n`;
+    output += `| Citation Key | Year | Title | Reason |\n| :--- | :--- | :--- | :--- |\n`;
     tier05.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
-    output += `\n## 🥇 Tier 1: The Gold List (General Components) - ${tier1.length} Papers\n`;
+    output += `\n## 🥇 Tier 1: The Archive (N=${tier1.length})\n`;
+    output += `*Good papers, but either older (<2022) or less specific. Use to bulk up the bibliography.*\n`;
     tier1.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
-    output += `\n## 🥈 Tier 2: The Silver List (Support) - ${tier2.length} Papers\n`;
-    tier2.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
-    
-    output += `\n## 🥉 Tier 3: The Bronze List (Context) - ${tier3.length} Papers\n`;
-    tier3.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
+    output += `\n## 🥈 Tier 2: The Support (N=${tier2.length})\n`;
+    output += `*Grinding applications and Adaptive Admittance.*\n`;
+    // tier2.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
     fs.writeFileSync(OUTPUT_FILE, output);
-    console.log(`Generated Platinum List: T0=${tier0.length}, T0.5=${tier05.length}, T1=${tier1.length}, T2=${tier2.length}`);
+    console.log(`Generated Professor List: T0=${tier0.length}, T0.5=${tier05.length}, T1=${tier1.length}`);
 }
 
 generatePriorityList();
