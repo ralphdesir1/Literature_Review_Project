@@ -1,0 +1,76 @@
+flowchart TD
+    %% ==================================================================================
+    %% PRISMA 2020 FLOW DIAGRAM FOR SYSTEMATIC REVIEWS
+    %% Phase: IDENTIFICATION -> SCREENING -> INCLUDED
+    %% ==================================================================================
+
+    subgraph Identification ["IDENTIFICATION (Week 2)"]
+        direction TB
+        DB1[("IEEE Xplore\n(N=TBD)")]
+        DB2[("Scopus\n(N=TBD)")]
+        DB3[("Google Scholar\n(N=TBD)")]
+        DB4[("PubMed\n(N=TBD)")]
+        
+        Total_Raw[("Total Records Identified\n(N=TBD)")]
+        
+        Dedupe_Process{"Deduplication\n(Zotero/Mendeley)"}
+        Total_Unique[("Unique Records Screened\n(N=TBD)")]
+    end
+
+    subgraph Screening ["SCREENING (Week 3)"]
+        direction TB
+        Title_Abs_Screen{"Title & Abstract\nScreening"}
+        
+        Excluded_Title["Records Excluded\n(N=TBD)"]
+        
+        Retrieval{"Full Text\nRetrieval"}
+        Not_Retrieved["Reports Not\nRetrieved\n(N=TBD)"]
+        
+        Full_Text_Assess{"Full-Text\nEligibility Assessment"}
+        
+        Excluded_Reason["Excluded with Reasons\n(N=TBD)"]
+        Reason1["Reason 1: No Human-in-Loop"]
+        Reason2["Reason 2: Known Surface Only"]
+        Reason3["Reason 3: Teleop (No Force)"]
+        Reason4["Reason 4: Wrong Task (Reaching)"]
+    end
+
+    subgraph Included ["INCLUDED (Week 4)"]
+        Final_Included[("Studies Included in\nQualitative Synthesis\n(N=TBD)")]
+    end
+
+    %% ==================================================================================
+    %% CONNECTIONS
+    %% ==================================================================================
+
+    DB1 --> Total_Raw
+    DB2 --> Total_Raw
+    DB3 --> Total_Raw
+    DB4 --> Total_Raw
+
+    Total_Raw --> Dedupe_Process
+    Dedupe_Process -->|"Duplicates Removed\n(N=TBD)"| Total_Unique
+    
+    Total_Unique --> Title_Abs_Screen
+    Title_Abs_Screen -->|"Irrelevant"| Excluded_Title
+    Title_Abs_Screen -->|"Potentially Relevant"| Retrieval
+    
+    Retrieval -->|"Not Found"| Not_Retrieved
+    Retrieval -->|"Retrieved"| Full_Text_Assess
+    
+    Full_Text_Assess -->|"Does not meet criteria"| Excluded_Reason
+    Excluded_Reason --- Reason1
+    Excluded_Reason --- Reason2
+    Excluded_Reason --- Reason3
+    Excluded_Reason --- Reason4
+    
+    Full_Text_Assess -->|"Meets all criteria"| Final_Included
+
+    %% ==================================================================================
+    %% STYLING
+    %% ==================================================================================
+    style Identification fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style Screening fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Included fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Excluded_Reason fill:#ffebee,stroke:#c62828
+
