@@ -58,8 +58,9 @@
 | S8 | Scopus | Q4 (variable adm + intent) | 2025-12-23 | 78 hits | Strong overlap with intent detection; lacks surface adaptation. |
 | S9 | Scopus | Q5 (active inference) | 2025-12-23 | 49 hits | Emerging area; gap in continuous contact tasks confirmed. |
 | S10 | Scopus | Q6 (intent + contact) | 2025-12-23 | 120 hits | Broadest cluster; provides the context for 'intent' research. |
+| **Total** | **All Scopus Queries** | **Combined** | **2025-12-23** | **354 hits** | **Final Export for Screening** |
 
-**Total Unique Records (Estimated):** ~150-200 after deduplication.
+**Total Unique Records:** 354 (Raw) -> TBD (after deduplication).
 
 ---
 
