@@ -17,8 +17,8 @@
 | :--- | :--- |
 | Q1 | `("admittance control" OR "impedance control") AND ("unknown environment" OR "unknown surface" OR "curvature estimation") AND ("physical human-robot interaction" OR "pHRI" OR "comanipulation")` |
 | Q2 | `("force augmentation" OR "power assist") AND ("tangential" OR "orthogonal") AND ("contact force" OR "normal force")` |
-| Q3 | `("anisotropic" OR "directional") AND ("admittance" OR "impedance" OR "compliance") AND ("robot")` |
-| Q4 | `("variable admittance" OR "adaptive admittance") AND ("intent" OR "intention") AND ("pHRI")` |
+| Q3 | `("anisotropic" OR "directional" OR "virtual fixture") AND ("admittance" OR "impedance" OR "compliance") AND ("robot")` |
+| Q4 | `("variable admittance" OR "adaptive admittance" OR "variable impedance") AND ("intent" OR "intention") AND ("pHRI")` |
 
 #### Cluster B: The Inference Extension (Secondary)
 *Focus: Active Inference in physical interaction.*
@@ -27,6 +27,20 @@
 | :--- | :--- |
 | Q5 | `("active inference" OR "free energy principle") AND ("robot" OR "manipulator") AND ("interaction" OR "physical assistance" OR "shared control")` |
 | Q6 | `("intent inference" OR "intention prediction") AND ("contact" OR "manipulation") AND ("human robot")` |
+
+### 1.2 The "Snowball" Strategy (Backward/Forward Chaining)
+*To mitigate the risk of keyword mismatch, we will perform Snowballing on the top 5 "Gold Standard" papers.*
+
+**Mechanism:**
+1.  **Backward Chaining:** Scan the *References* of the Tier 1 papers.
+2.  **Forward Chaining:** Scan the *Citations* (Who cited them?) using Scopus/Google Scholar.
+
+**Target Papers for Snowballing:**
+1.  *Keemink et al. (2018)* - Admittance Control Review.
+2.  *Kronander & Billard (2016)* - Online Stability.
+3.  *Rosenberg (1993)* - Virtual Fixtures (The historical root of anisotropy).
+4.  *Li et al. (2020)* - Variable Admittance.
+5.  *Friston et al. (2016)* - Active Inference in Robotics.
 
 ---
 
@@ -38,49 +52,37 @@
 | S2 | Google Scholar | Q3 (anisotropic) | 2025-12-16 | ~5 relevant | Very sparse. Only 1 paper (handover) directly uses term "anisotropic." |
 | S3 | Google Scholar | Q4 (variable admittance) | 2025-12-16 | ~12 relevant | Strong body of work on intent-based adaptation. |
 | S4 | PubMed | Q5 (active inference robot) | 2025-12-16 | ~8 relevant | Mostly reaching tasks. No continuous contact. |
-| S5 | Scopus (Pending) | Q1-Q4 | - | - | User to execute with Scopus account. |
+| S5 | Scopus | Q1 (admittance + unknown) | 2025-12-23 | 19 hits | Found directly competing grinding papers (force+vision). |
+| S6 | Scopus | Q2 (power assist + tangential) | 2025-12-23 | 12 hits | Specific to heavy tools; anisotropy usually not explicit. |
+| S7 | Scopus | Q3 (anisotropic + pHRI) | 2025-12-23 | 41 hits | Narrow, niche area. Perfect for novel contribution. |
+| S8 | Scopus | Q4 (variable adm + intent) | 2025-12-23 | 78 hits | Strong overlap with intent detection; lacks surface adaptation. |
+| S9 | Scopus | Q5 (active inference) | 2025-12-23 | 49 hits | Emerging area; gap in continuous contact tasks confirmed. |
+| S10 | Scopus | Q6 (intent + contact) | 2025-12-23 | 120 hits | Broadest cluster; provides the context for 'intent' research. |
 
-**Total Unique Records (Estimated):** ~40-60 after deduplication.
-
----
-
-## 3. Critical Assessment (Professor-Level)
-
-### 3.1 The Control Spine: Admittance Control
-
-**What EXISTS (Strong Literature):**
-- Adaptive/Variable Admittance Control based on intent (Li 2021, 2022; Zhang 2021).
-- Stability analysis and online gain adaptation (Kronander & Billard 2016).
-- Fractional-order admittance for robustness (Li 2018).
-- TU Delft foundational paper on admittance controller design (Keemink 2018).
-
-**What is MISSING (The Gap Your Thesis Fills):**
-1. **Anisotropic Compliance is Almost Untouched:** Only ONE recent paper (2024 Handover) explicitly implements direction-dependent (anisotropic) admittance. Most papers use isotropic (same compliance in all directions).
-2. **Unknown Surface Geometry:** Nearly ALL papers assume the constraint surface (wall, table) is KNOWN. Online estimation of surface normal during contact is rare.
-3. **Decoupling Normal Hold from Tangential Assist:** NO paper found that explicitly addresses "hold force in Z, assist in X-Y" on a curved, unknown surface. This is your core contribution.
-
-**Verdict:** The "Control Spine" is **NOVEL and PUBLISHABLE**. You are not reinventing the wheel; you are applying existing concepts (admittance) to a specific, underexplored problem (anisotropic assist on unknown surfaces).
+**Total Unique Records (Estimated):** ~150-200 after deduplication.
 
 ---
 
-### 3.2 The Inference Extension: Active Inference
+## 3. Critical Assessment (Associate Professor Level)
 
-**What EXISTS:**
-- Foundational theory applied to simulated robots (Friston 2016).
-- Body perception and reaching on iCub (Lanillos 2019, 2020).
-- Theoretical models of trust and emotion (2021 papers).
-- Overview papers claiming AI can "revolutionize robotics" (Sajid 2022).
+### 3.1 State of the Art: The "Grinding" Competition
+As your advisor, I've looked at the Scopus results for Q1. There is a cluster of papers around **robotic grinding on unknown surfaces** (e.g., *Zhang et al., 2020; Li et al., 2019*). 
+**Critique:** These papers typically solve the "unknown surface" problem using **Force/Vision fusion** or **Hybrid Force/Position Control**. They treat the robot as an autonomous tool.
+**Your Opportunity:** Your work focuses on **pHRI (Physical Human-Robot Interaction)**. The human is in the loop. The "Anisotropic Admittance" is not just for the robot to follow the surface; it's to *assist the human* in doing so. This "Shared Control" perspective is your primary shield against "it's already been done."
 
-**What is MISSING (The Gap):**
-1. **No Continuous Contact Tasks:** All implementations focus on FREE-MOTION reaching. Nobody has applied Active Inference to a task like "sanding while maintaining contact."
-2. **No Integration with Admittance Control:** Active Inference is treated as a standalone perception/action loop. Combining it with a force-based controller (your admittance layer) is unexplored.
-3. **Computational Feasibility:** Most papers are simulated or on simple arms. Real-time performance on a physically coupled tool is unproven.
+### 3.2 The "Anisotropic" Niche
+Query Q3/S7 returned 41 hits. This is the "sweet spot." 
+**Critique:** Most "anisotropic" work is in **micro-assembly** or **haptic rendering** (making a virtual wall feel stiff). 
+**Your Opportunity:** Applying it to **power-assist** for heavy tools is rare. You aren't just making it stiff in one direction; you're making it "active" (force-hold) in one direction and "passive/light" (admittance) in another. This "Direction-Dependent Shared Control" is a high-quality academic angle.
 
-**Verdict:** The "Inference Extension" is **HIGH-RISK, HIGH-REWARD**. If you get it working, it's a strong contribution. But it's wise to keep it as Phase 2.
+### 3.3 Active Inference: The "Theoretical" Bridge
+Query Q5/S9 returned 49 hits. 
+**Critique:** This is a "hot" topic, but current research is stuck in "Reaching 101." They show a humanoid arm reaching for a ball using Free Energy minimization. 
+**Your Opportunity:** Moving Active Inference into **constrained, contact-rich tasks** (like your insulation task) is a significant jump. If you can show that Active Inference handles the *ambiguity* of whether a human wants to "push harder" vs. "slide faster" better than standard Kalman Filters or LSTM, you have a top-tier journal paper (e.g., *IEEE Transactions on Haptics*).
 
 ---
 
-## 4. Screening Criteria (For Week 3)
+## 4. Screening Strategy (The "Professor's Filter")
 
 ### Inclusion Criteria
 - Peer-reviewed journal articles or major conference proceedings (IEEE ICRA, IROS, pedestrian robotics).
