@@ -23,20 +23,22 @@
 
 ---
 
-## Week 3.5: Strategic Prioritization (The "Diamond Cut")
-**Date:** Dec 23, 2025 (Post-Screening)
-**Objective:** Reduce N=172 to a manageable "Must Read" list (~20-40 papers).
+## Week 3.5: Strategic Prioritization (The "Platinum Cut")
+**Date:** Dec 23, 2025 (Refined)
+**Objective:** Identify the "Core Reading Batch" (~20-40 papers).
 **Logic:**
 - **Tier 0 (Diamond):** Intersection of "Unknown Surface" AND "Anisotropic/Tangential". (N=4) -> **THESIS CORE**.
-- **Tier 1 (Gold):** Solves ONE core problem (Unknown OR Aniso OR ActInf). (N=51) -> **PRIMARY REFERENCES**.
-- **Tier 2 (Silver):** Adaptive Admittance / General Grinding. (N=48) -> **SUPPORT**.
-- **Tier 3 (Bronze):** Context. (N=69) -> **ARCHIVE**.
+- **Tier 0.5 (Platinum):** Explicit Anisotropy OR Active Inf+Contact OR Unknown Surface+Admittance. (N=52) -> **HEAVY HITTERS**.
+- **Tier 1 (Gold):** General components. (N=68).
+- **Tier 2 (Silver):** Support. (N=3).
 
-**Outcome:** `priority_reading_list.md` created. Reading load reduced to **55 key papers** (Tier 0 + Tier 1).
+**Outcome:** `priority_reading_list.md` updated.
+**Reading Load:** **4 Diamond Papers** (Deep Read) + **52 Platinum Papers** (Targeted Skimming). Total = 56.
 
 ---
 
 ## Week 4: Eligibility (Full Text Review)
 **Status:** Next Step
-**Target:** Read Tier 0 papers immediately. Skim Tier 1.
+**Target:** Read Tier 0 papers immediately. Skim Tier 0.5.
+
 

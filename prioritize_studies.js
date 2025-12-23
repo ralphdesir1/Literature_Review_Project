@@ -27,33 +27,42 @@ function parseBibTex(content) {
 function categorizePaper(entry) {
     const text = ((entry.title || "") + " " + (entry.abstract || "") + " " + (entry.keywords || "")).toLowerCase();
     
-    // TIER 0: THE DIAMOND LIST (Intersection of Core Concepts)
-    // Must be "Unknown Surface" AND "Anisotropic/Tangential"
+    // TIER 0: DIAMOND (Intersection) - The "Holy Grail"
+    // Unknown Surface AND Anisotropic
     const isUnknown = text.includes('unknown surface') || text.includes('unknown environment') || text.includes('curvature estimation');
     const isAniso = text.includes('anisotropic') || text.includes('tangential') || text.includes('directional');
-    
     if (isUnknown && isAniso) {
         return { tier: 0, reason: "💎 DIAMOND: Unknown Surface + Anisotropic (Thesis Core)" };
     }
 
-    // TIER 1: The "Gold Standard" (Ruthless Cut)
-    const isUnknownSurface = (text.includes('unknown surface') || text.includes('unknown environment') || text.includes('curvature estimation') || text.includes('geometry estimation')) 
-                             && (text.includes('control') || text.includes('impedance') || text.includes('admittance'));
-    const isAnisotropicOnly = text.includes('anisotropic') || text.includes('directional compliance');
-    const isActiveInfContact = (text.includes('active inference') || text.includes('free energy')) 
-                               && (text.includes('contact') || text.includes('force') || text.includes('haptic'));
-
-    if (isUnknownSurface || isAnisotropicOnly || isActiveInfContact) {
-        return { tier: 1, reason: "GOLD: Solves ONE core problem (Unknown OR Aniso OR ActInf)" };
+    // TIER 0.5: PLATINUM (The "Heavy Hitters") - ~20-30 papers
+    // 1. Explicit Anisotropic Control (rare and critical)
+    if (text.includes('anisotropic') || text.includes('directional compliance') || text.includes('directional impedance')) {
+        return { tier: 0.5, reason: "PLATINUM: Explicit Anisotropic/Directional Control" };
+    }
+    // 2. Active Inference WITH Contact/Force (rare and critical)
+    if ((text.includes('active inference') || text.includes('free energy')) && (text.includes('contact') || text.includes('force') || text.includes('haptic'))) {
+        return { tier: 0.5, reason: "PLATINUM: Active Inference + Contact" };
+    }
+    // 3. Unknown Surface + Admittance (The "Grinding" Competitors)
+    if (isUnknown && (text.includes('admittance') || text.includes('impedance'))) {
+        return { tier: 0.5, reason: "PLATINUM: Unknown Surface + Impedance/Admittance" };
     }
 
-    // TIER 2: The "Silver Standard"
-    const hasGrinding = text.includes('grinding') || text.includes('polishing') || text.includes('sanding') || text.includes('deburring');
-    const hasAdaptAdmittance = text.includes('variable admittance') || text.includes('adaptive admittance') || text.includes('learning admittance');
-    const hasActiveInf = text.includes('active inference') || text.includes('free energy'); 
+    // TIER 1: GOLD (Component Solutions)
+    const isUnknownGeneral = text.includes('unknown surface') || text.includes('unknown environment') || text.includes('curvature estimation');
+    if (isUnknownGeneral) {
+        return { tier: 1, reason: "GOLD: Unknown Surface (General)" };
+    }
+    if (text.includes('control') && (text.includes('contact') || text.includes('interaction'))) {
+        return { tier: 1, reason: "GOLD: General Contact Control" };
+    }
 
-    if (hasGrinding || hasAdaptAdmittance || hasActiveInf) {
-        return { tier: 2, reason: "SILVER: Strong Support (Grinding/Adaptive)" };
+    // TIER 2: SILVER (Support)
+    const hasGrinding = text.includes('grinding') || text.includes('polishing') || text.includes('sanding');
+    const hasAdaptAdmittance = text.includes('variable admittance') || text.includes('adaptive admittance');
+    if (hasGrinding || hasAdaptAdmittance) {
+        return { tier: 2, reason: "SILVER: Grinding/Adaptive Support" };
     }
 
     return { tier: 3, reason: "BRONZE: General Context" };
@@ -69,6 +78,7 @@ function generatePriorityList() {
     const entries = parseBibTex(content);
     
     const tier0 = [];
+    const tier05 = [];
     const tier1 = [];
     const tier2 = [];
     const tier3 = [];
@@ -77,31 +87,35 @@ function generatePriorityList() {
         const cat = categorizePaper(entry);
         entry.reason = cat.reason;
         if (cat.tier === 0) tier0.push(entry);
+        else if (cat.tier === 0.5) tier05.push(entry);
         else if (cat.tier === 1) tier1.push(entry);
         else if (cat.tier === 2) tier2.push(entry);
         else tier3.push(entry);
     });
 
-    let output = `# Week 3.5: Strategic Reading Priority (Diamond Cut)\n\n`;
-    output += `**Objective:** Identify the "Diamond" papers that intersect both core challenges.\n\n`;
+    let output = `# Week 3.5: Strategic Reading Priority (Platinum Cut)\n\n`;
+    output += `**Objective:** Identify the top ~30 papers (Diamond + Platinum) for deep reading.\n\n`;
     
     output += `## 💎 Tier 0: The Diamond List (Thesis Core) - ${tier0.length} Papers\n`;
-    output += `*These papers address BOTH 'Unknown Surface' AND 'Anisotropic/Tangential' control. Read these FIRST.*\n\n`;
+    output += `*Intersection of Unknown Surface AND Anisotropy.*\n\n`;
     output += `| Citation Key | Year | Title | Reason |\n| :--- | :--- | :--- | :--- |\n`;
     tier0.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
-    output += `\n## 🥇 Tier 1: The Gold List (Component Solutions) - ${tier1.length} Papers\n`;
-    output += `*These solve ONE of the core problems (Unknown Surface OR Anisotropy OR Active Inf).*\n\n`;
+    output += `\n## 💍 Tier 0.5: The Platinum List (Heavy Hitters) - ${tier05.length} Papers\n`;
+    output += `*Major competitors: Explicit Anisotropy, Active Inf+Contact, or Unknown Surface Control.*\n\n`;
+    tier05.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
+
+    output += `\n## 🥇 Tier 1: The Gold List (General Components) - ${tier1.length} Papers\n`;
     tier1.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
     output += `\n## 🥈 Tier 2: The Silver List (Support) - ${tier2.length} Papers\n`;
     tier2.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
-
+    
     output += `\n## 🥉 Tier 3: The Bronze List (Context) - ${tier3.length} Papers\n`;
     tier3.forEach(e => output += `| \`${e.key}\` | ${e.year} | ${e.title.substring(0,60)}... | ${e.reason} |\n`);
 
     fs.writeFileSync(OUTPUT_FILE, output);
-    console.log(`Generated Diamond List: T0=${tier0.length}, T1=${tier1.length}, T2=${tier2.length}, T3=${tier3.length}`);
+    console.log(`Generated Platinum List: T0=${tier0.length}, T0.5=${tier05.length}, T1=${tier1.length}, T2=${tier2.length}`);
 }
 
 generatePriorityList();
